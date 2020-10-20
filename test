@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+echo "Running $1"
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+if [ -f ./$1/main.js ]; then
+  if ! command -v node &> /dev/null
+  then
+    echo -e "${RED}Node is not installed${NC}"
+    exit
+  fi
+  COMMAND="OUTPUT_PATH=out.txt node $1/main.js"
+elif [ -f ./$1/main.php ]; then
+  if ! command -v php &> /dev/null
+  then
+    echo -e "${RED}PHP is not installed${NC}"
+    exit
+  fi
+  COMMAND="OUTPUT_PATH=out.txt php $1/main.php"
+elif [ -f ./$1/main.py ]; then
+  if ! command -v python &> /dev/null
+  then
+    echo -e "${RED}Python is not installed${NC}"
+    exit
+  fi
+  COMMAND="OUTPUT_PATH=out.txt python $1/main.py"
+fi
+for file in ./$1/input/input*; do
+  echo "Testing $file:"
+  if [ -f "$file" ]; then
+    OUTPUT=$("$COMMAND < $file")
+    if [ -f "out.txt" ]; then
+      ACTUAL=$(cat out.txt)
+      rm out.txt
+    else
+      ACTUAL=$OUTPUT
+    fi
+    DESIRED=$(cat ${file//input/output})
+    echo "    Actual output:"
+    echo "    $ACTUAL"
+    echo "    Desired output:"
+    echo "    $DESIRED"
+    echo "    Test result:"
+    if [ "$ACTUAL" = "$DESIRED" ]; then
+      echo -e "   ${GREEN}PASSED${NC}"
+    else
+      echo -e "   ${RED}FAILED${NC}"
+    fi
+  fi
+done
