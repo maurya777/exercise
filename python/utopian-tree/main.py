@@ -1,3 +1,4 @@
+# Python 2
 total_tests = int(input())
 def utopianHeight(x,y): 
     if y % 2 == 0:
