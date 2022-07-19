@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const assert = require('node:assert');
+const { deepEqual } = require('node:assert');
 
 function insertionSort(arr) {
   for (let i = 1; i < arr.length; i++) {
@@ -14,9 +14,9 @@ function insertionSort(arr) {
   return arr;
 }
 if (require?.main === module) {
-  assert.deepEqual(insertionSort([]), []);
-  assert.deepEqual(insertionSort([5]), [5]);
-  assert.deepEqual(insertionSort([5, 3, 6, 1]), [1, 3, 5, 6]);
+  deepEqual(insertionSort([]), []);
+  deepEqual(insertionSort([5]), [5]);
+  deepEqual(insertionSort([5, 3, 6, 1]), [1, 3, 5, 6]);
 
   console.log(
     insertionSort(

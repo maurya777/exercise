@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const assert = require('node:assert');
+const { deepEqual } = require('node:assert');
 
 function merge(left, right) {
   const result = [];
@@ -22,9 +22,9 @@ function mergeSort(arr) {
 }
 
 if (require?.main === module) {
-  assert.deepEqual(mergeSort([]), []);
-  assert.deepEqual(mergeSort([5]), [5]);
-  assert.deepEqual(mergeSort([5, 3, 6, 1]), [1, 3, 5, 6]);
+  deepEqual(mergeSort([]), []);
+  deepEqual(mergeSort([5]), [5]);
+  deepEqual(mergeSort([5, 3, 6, 1]), [1, 3, 5, 6]);
 
   console.log(
     mergeSort(

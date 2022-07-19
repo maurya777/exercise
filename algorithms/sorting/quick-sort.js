@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const assert = require('node:assert');
+const { deepEqual } = require('node:assert');
 
 function swap(arr, from, to) {
   // if (from === to) return;
@@ -49,9 +49,9 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
 }
 
 if (require?.main === module) {
-  assert.deepEqual(quickSort([]), []);
-  assert.deepEqual(quickSort([5]), [5]);
-  assert.deepEqual(quickSort([5, 3, 6, 1]), [1, 3, 5, 6]);
+  deepEqual(quickSort([]), []);
+  deepEqual(quickSort([5]), [5]);
+  deepEqual(quickSort([5, 3, 6, 1]), [1, 3, 5, 6]);
 
   console.log(
     quickSort(
