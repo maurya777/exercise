@@ -1,7 +1,9 @@
 #!/usr/bin/env node
+const assert = require('node:assert');
+
 function swap(arr, from, to) {
   // if (from === to) return;
-  console.log('Swapping', arr[from], from, arr[to], to);
+  // console.log('Swapping', arr[from], from, arr[to], to);
   const tmp = arr[from];
   arr[from] = arr[to];
   arr[to] = tmp;
@@ -27,7 +29,7 @@ function pivotAtLast(arr, left = 0, right = arr.length - 1) {
   for (let index = right - 1; index >= left; index--) {
     if (pv < arr[index]) {
       largeValuesStartFrom--;
-      console.log(pv, 'is less than', arr[index]);
+      // console.log(pv, 'is less than', arr[index]);
       swap(arr, index, largeValuesStartFrom);
     }
   }
@@ -37,9 +39,9 @@ function pivotAtLast(arr, left = 0, right = arr.length - 1) {
 
 function quickSort(arr, left = 0, right = arr.length - 1) {
   if (left < right) {
-    console.log(arr);
+    // console.log(arr);
     const p = pivotAtLast(arr, left, right);
-    console.log('pivoting at', p, left, right);
+    // console.log('pivoting at', p, left, right);
     quickSort(arr, left, p - 1);
     quickSort(arr, p + 1, right);
   }
@@ -47,6 +49,10 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
 }
 
 if (require?.main === module) {
+  assert.deepEqual(quickSort([]), []);
+  assert.deepEqual(quickSort([5]), [5]);
+  assert.deepEqual(quickSort([5, 3, 6, 1]), [1, 3, 5, 6]);
+
   console.log(
     quickSort(
       Array(parseInt(Math.random() * 100, 10))

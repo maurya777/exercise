@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+const assert = require('node:assert');
+
 function getDigit(num, place) {
   return Math.floor(Math.abs(num) / 10 ** place) % 10;
 }
@@ -23,6 +25,9 @@ function radixSort(arr, place = 0) {
 }
 
 if (require?.main === module) {
+  assert.deepEqual(radixSort([]), []);
+  assert.deepEqual(radixSort([5]), [5]);
+  assert.deepEqual(radixSort([5, 3, 6, 1]), [1, 3, 5, 6]);
   console.log(
     radixSort(
       Array(parseInt(Math.random() * 100, 10))

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const assert = require('node:assert');
 
 function bubbleSort(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -19,8 +20,15 @@ function bubbleSort(arr) {
 }
 
 if (require?.main === module) {
+  assert.deepEqual(bubbleSort([]), []);
+  assert.deepEqual(bubbleSort([5]), [5]);
+  assert.deepEqual(bubbleSort([5, 3, 6, 1]), [1, 3, 5, 6]);
   console.log(
-    bubbleSort([5, 3, 1, 67, 3, 1, 4, 8, 5, 1, 6, 3, 2, 6, 8, 6, 2, 34, 1])
+    bubbleSort(
+      Array(parseInt(Math.random() * 100, 10))
+        .fill()
+        .map((_) => parseInt(Math.random() * 100, 10))
+    )
   );
 }
 
