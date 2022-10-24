@@ -68,9 +68,25 @@ class SingleLinkedList {
     return node;
   }
 
-  get() {
-    throw new Error('Not implemented');
+  get(index) {
+    if (index < 0) return null;
+    if (index >= this.length) return null;
+    if (this.length === 0) return null;
+    let node = this.head;
+    let counter = 0;
+    while (counter++ < index) node = node.next;
+    return node;
   }
+
+  set(index, value) {
+    let node = this.get(index);
+    if (node) {
+      node.value = value;
+      return true;
+    }
+    return false;
+  }
+
   insert() {
     throw new Error('Not implemented');
   }
@@ -133,6 +149,30 @@ if (require?.main === module) {
   equal(list.length, 0);
   equal(list.head, list.tail);
   equal(list.head, null);
+
+  list.push('test1');
+  list.push('test2');
+  list.push('test3');
+  equal(list.get(0).value, 'test1');
+  equal(list.get(1).value, 'test2');
+  equal(list.get(2).value, 'test3');
+  equal(list.get(-1), null);
+  equal(list.get(5), null);
+  list.pop();
+  list.pop();
+  list.pop();
+  equal(list.get(0), null);
+
+  list.push('test1');
+  list.push('test2');
+  equal(list.set(0, 'test11'), true);
+  equal(list.get(0).value, 'test11');
+  equal(list.set(1, 'test21'), true);
+  equal(list.get(1).value, 'test21');
+  equal(list.set(-1), false);
+  equal(list.set(5), false);
+  list.pop();
+  list.pop();
 
   console.log(list);
 }
